@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Khi Checkbox được chọn -->
+    <item android:state_checked="true" android:drawable="@drawable/radiordc"/>
+    <!-- Khi Checkbox không được chọn -->
+    <item android:drawable="@drawable/radiordn"/>
+</selector>

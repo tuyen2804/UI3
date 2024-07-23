@@ -1,0 +1,30 @@
+<!-- item_recycler_view.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/layout_item_all"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/imageViewItem"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_foreground"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/txtNameImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name Item"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/txtCountFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Count file"/>
+
+</LinearLayout>
