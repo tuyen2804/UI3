@@ -1,40 +1,48 @@
 package com.example.myapplication.UI.Fragment
 
 import android.Manifest
-import android.app.Activity
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.myapplication.Adapter.LibraryAdapter
-import com.example.myapplication.Base.BaseFragment
-import com.example.myapplication.DataItem.ItemAll
 import com.example.myapplication.LibraryInterface
-import com.example.myapplication.R
+import com.example.myapplication.Adapter.ListAlbumAdapter
+import com.example.myapplication.UI.Activity.PhotoLibraryActivity
+import com.example.myapplication.ViewModel.ViewAlbumModel
 import com.example.myapplication.databinding.FragmentAllBinding
 
-class AllFragment : BaseFragment<FragmentAllBinding>(), LibraryInterface {
-    private val arl: ArrayList<ItemAll> = arrayListOf()
-    private lateinit var adapter: LibraryAdapter
+class AllFragment : Fragment(), LibraryInterface {
 
-    override fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentAllBinding {
-        return FragmentAllBinding.inflate(inflater, container, false)
+    private var _binding: FragmentAllBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: ViewAlbumModel by viewModels()
+    private lateinit var adapter: ListAlbumAdapter
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentAllBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun init() {
-        // Initialization code here
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpView()
+        setUpObserver()
     }
 
-    override fun setUpView() {
+    private fun setUpView() {
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
 
         // Initialize adapter here
-        adapter = LibraryAdapter(arl, this)
+        adapter = ListAlbumAdapter(emptyList(), this)
         binding.recyclerView.adapter = adapter
 
         if (ContextCompat.checkSelfPermission(
@@ -42,12 +50,26 @@ class AllFragment : BaseFragment<FragmentAllBinding>(), LibraryInterface {
                 Manifest.permission.READ_MEDIA_IMAGES
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            val dataImg = getAllShownImagesPath(requireActivity())
-            arl.addAll(dataImg)
-            adapter.notifyDataSetChanged()
+            viewModel.fetchAlbums(requireContext())
         } else {
             requestPermissions(arrayOf(Manifest.permission.READ_MEDIA_IMAGES), 100)
         }
+    }
+
+    private fun setUpObserver() {
+        viewModel.albumList.observe(viewLifecycleOwner, Observer { albums ->
+            adapter.updateData(albums)
+        })
+    }
+
+    override fun onClickFile(position: Int, text: String) {
+        val bundle = Bundle().apply {
+            putString("albumName", text)
+        }
+        val imageFragment = ImageFragment().apply {
+            arguments = bundle
+        }
+        (activity as? PhotoLibraryActivity)?.replaceFragment(imageFragment)
     }
 
     override fun onRequestPermissionsResult(
@@ -59,70 +81,16 @@ class AllFragment : BaseFragment<FragmentAllBinding>(), LibraryInterface {
                 if (grantResults.isNotEmpty() &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
-                    val dataImg = getAllShownImagesPath(requireActivity())
-                    arl.addAll(dataImg)
-                    adapter.notifyDataSetChanged()
+                    viewModel.fetchAlbums(requireContext())
                 } else {
-                    // Explain to the user that the feature is unavailable because
-                    // the feature requires a permission that the user has denied.
+                    // Giải thích cho người dùng rằng tính năng không khả dụng vì quyền bị từ chối.
                 }
                 return
             }
             else -> {
-                // Ignore all other requests.
+                // Bỏ qua các yêu cầu khác.
             }
         }
-    }
-
-    private fun getAllShownImagesPath(activity: Activity): List<ItemAll> {
-        val cursor: Cursor?
-        val listOfAllImages = mutableListOf<ItemAll>()
-        val uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-
-        val projection = arrayOf(
-            MediaStore.MediaColumns.DATA,
-            MediaStore.Images.Media.BUCKET_DISPLAY_NAME
-        )
-
-        cursor = activity.contentResolver.query(
-            uri, projection, null,
-            null, null
-        )
-
-        val columnIndexData = cursor!!.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
-        val columnIndexFolderName = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME)
-
-        val albumMap = mutableMapOf<String, Pair<String, Int>>()
-
-        while (cursor.moveToNext()) {
-            val absolutePathOfImage = cursor.getString(columnIndexData)
-            val albumName = cursor.getString(columnIndexFolderName)
-
-            if (albumMap.containsKey(albumName)) {
-                val current = albumMap[albumName]!!
-                albumMap[albumName] = Pair(current.first, current.second + 1)
-            } else {
-                albumMap[albumName] = Pair(absolutePathOfImage, 1)
-            }
-        }
-        cursor.close()
-
-        for ((albumName, pair) in albumMap) {
-            val (firstImagePath, imageCount) = pair
-            listOfAllImages.add(ItemAll(firstImagePath, albumName, imageCount))
-        }
-
-        return listOfAllImages
-    }
-
-    override fun onClickFile(position: Int, text: String) {
-        // Tạo Bundle và truyền tên album
-        val bundle = Bundle().apply {
-            putString("albumName", text)
-        }
-
-        // Chuyển đổi fragment bằng phương thức openImageFragment từ LibraryFragment
-        (parentFragment as? LibraryFragment)?.openImageFragment(text)
     }
 
     override fun onDestroyView() {

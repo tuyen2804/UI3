@@ -1,5 +1,5 @@
 package com.example.myapplication
 
-interface RvInterface {
+interface ImageInterface {
     fun onClickFile(pos:Int)
 }

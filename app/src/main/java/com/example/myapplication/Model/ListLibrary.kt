@@ -1,4 +1,4 @@
-package com.example.myapplication.DataItem
+package com.example.myapplication.Model
 
 data class ListLibrary(
     val txtNameLibrary: String

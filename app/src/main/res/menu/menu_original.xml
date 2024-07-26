@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="jpg"
+        android:id="@+id/jpg"/>
+    <item
+        android:title="png"
+        android:id="@+id/png"/>
+    <item
+        android:title="webp"
+        android:id="@+id/webp"/>
+    <item
+        android:title="jpeg"
+        android:id="@+id/jpeg"/>
+    <item
+        android:title="heic"
+        android:id="@+id/heic"/>
+</menu>

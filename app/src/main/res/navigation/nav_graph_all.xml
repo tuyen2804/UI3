@@ -18,7 +18,7 @@
             android:id="@+id/action_allFragment_to_imageFragment"/>
     <fragment
         android:id="@+id/imageFragment"
-        android:name="com.example.myapplication.UI.Activity.ImageFragment"
+        android:name="com.example.myapplication.UI.Fragment.ImageFragment"
         android:label="ImageFragment"
         tools:layout="@layout/layout_item_image"/>
         <action

@@ -7,7 +7,6 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-
     <uses-permission
         android:name="android.permission.READ_MEDIA_IMAGES"
         android:required="false" />
@@ -29,21 +28,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
-
+        <activity
+            android:name=".UI.Activity.PreCompressionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Activity.ListImageActivity"
+            android:exported="false" />
         <activity
             android:name=".UI.Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Đảm bảo rằng PhotoLibraryActivity đã được khai báo -->
+        </activity> <!-- Đảm bảo rằng PhotoLibraryActivity đã được khai báo -->
         <activity android:name=".UI.Activity.PhotoLibraryActivity" />
-
-        <!-- Nếu cần, bạn có thể khai báo các fragment ở đây nếu chưa có -->
-
     </application>
 
 </manifest>

@@ -1,20 +1,23 @@
 package com.example.myapplication.UI.Activity
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.Base.BaseActivity
-import com.example.myapplication.DataItem.ListLibrary
+import com.example.myapplication.Model.ListLibrary
 import com.example.myapplication.UI.Fragment.LibraryFragment
 import com.example.myapplication.databinding.ActivityPhotoLibraryBinding
 import com.example.myapplication.Adapter.ListLibraryAdapter
 import com.example.myapplication.R
+import com.example.myapplication.UI.Fragment.ImageFragment
 
 class PhotoLibraryActivity : BaseActivity<ActivityPhotoLibraryBinding>() {
 
     private lateinit var listLibraryAdapter: ListLibraryAdapter
-    private val fragmentList = mutableListOf<ListLibrary>()
+    private var fragmentList = mutableListOf<ListLibrary>()
 
     override fun getViewBinding(inflater: LayoutInflater): ActivityPhotoLibraryBinding {
         return ActivityPhotoLibraryBinding.inflate(inflater)
@@ -42,7 +45,7 @@ class PhotoLibraryActivity : BaseActivity<ActivityPhotoLibraryBinding>() {
         listLibraryAdapter.notifyDataSetChanged()
     }
 
-    fun addFragmentToList(fragmentName: String) {
+    public fun addFragmentToList(fragmentName: String) {
         fragmentList.add(ListLibrary(fragmentName))
         listLibraryAdapter.notifyDataSetChanged()
     }
@@ -56,8 +59,21 @@ class PhotoLibraryActivity : BaseActivity<ActivityPhotoLibraryBinding>() {
             addFragmentToList(getFragmentName(it))
         }
     }
+    public fun replaceFragment(fragment: Fragment) {
+        val fragmentInstance = supportFragmentManager
 
-    private fun getFragmentName(fragment: Fragment): String {
+        fragmentInstance.beginTransaction()
+            .replace(R.id.fragment_container_viewMain, fragment)
+            .addToBackStack(fragment::class.java.name)
+            .commit()
+
+        // Cập nhật danh sách fragment
+        addFragmentToList(getFragmentName(fragment))
+        Log.d(TAG, "replaceFragment: "+fragmentList)
+    }
+
+
+    public fun getFragmentName(fragment: Fragment): String {
         return when (fragment) {
             is LibraryFragment -> "Library"
             is ImageFragment -> "Image"
@@ -65,12 +81,6 @@ class PhotoLibraryActivity : BaseActivity<ActivityPhotoLibraryBinding>() {
         }
     }
 
-    fun openFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_viewMain, fragment)
-            .addToBackStack(null)
-            .commit()
-    }
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -78,5 +88,5 @@ class PhotoLibraryActivity : BaseActivity<ActivityPhotoLibraryBinding>() {
         currentFragment?.let {
             updateFragmentList(getFragmentName(it))
         }
-    }
+  }
 }

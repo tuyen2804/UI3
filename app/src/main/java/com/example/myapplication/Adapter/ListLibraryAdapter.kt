@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.DataItem.ListLibrary
 import com.example.myapplication.R
-import androidx.fragment.app.Fragment
+import com.example.myapplication.Model.ListLibrary
 
 class ListLibraryAdapter(
     private val items: List<ListLibrary>,
