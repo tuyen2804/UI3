@@ -3,18 +3,20 @@ package com.example.myapplication.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.CheckBox
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.Model.ListImageModel
 import com.example.myapplication.R
 
-class ImageAdapter(val items: List<ListImageModel>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class ImageAdapter(private var items: List<ListImageModel>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.imageViewItem)
         val checkBox: CheckBox = view.findViewById(R.id.cbImage)
+        val sizeTextView: TextView = view.findViewById(R.id.sizeImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,6 +31,7 @@ class ImageAdapter(val items: List<ListImageModel>) : RecyclerView.Adapter<Image
             .load(item.imagePath)
             .into(holder.imageView)
         holder.checkBox.isChecked = item.isChecked
+        holder.sizeTextView.text = item.size
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             item.isChecked = isChecked
         }
@@ -36,5 +39,14 @@ class ImageAdapter(val items: List<ListImageModel>) : RecyclerView.Adapter<Image
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun updateItems(newItems: List<ListImageModel>) {
+        items = newItems
+        notifyDataSetChanged()
+    }
+
+    fun getSelectedImagePaths(): List<String> {
+        return items.filter { it.isChecked }.map { it.imagePath }
     }
 }

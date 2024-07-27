@@ -1,21 +1,37 @@
 package com.example.myapplication.ViewModel
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.provider.MediaStore
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.Model.ListAlbumModel
 
-class ViewAlbumModel : ViewModel() {
+class AlbumViewModel : ViewModel() {
 
     private val _albumList = MutableLiveData<List<ListAlbumModel>>()
     val albumList: LiveData<List<ListAlbumModel>> get() = _albumList
+
+    fun checkPermissions(context: Context, requestPermissions: () -> Unit) {
+        if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.READ_MEDIA_IMAGES
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fetchAlbums(context)
+        } else {
+            requestPermissions.invoke()
+        }
+    }
 
     fun fetchAlbums(context: Context) {
         val albums = getAllShownImagesPath(context)
         _albumList.postValue(albums)
     }
+
 
     private fun getAllShownImagesPath(context: Context): List<ListAlbumModel> {
         val listOfAllImages = mutableListOf<ListAlbumModel>()

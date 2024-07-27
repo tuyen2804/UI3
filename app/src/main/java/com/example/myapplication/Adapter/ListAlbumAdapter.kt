@@ -1,5 +1,6 @@
 package com.example.myapplication.Adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,8 @@ import com.example.myapplication.LibraryInterface
 import com.example.myapplication.R
 import com.example.myapplication.Model.ListAlbumModel
 
-class ListAlbumAdapter(private var items: List<ListAlbumModel>, private val onClickFile: LibraryInterface) : RecyclerView.Adapter<ListAlbumAdapter.ViewHolder>() {
-
+class ListAlbumAdapter( private val onClickFile: LibraryInterface) : RecyclerView.Adapter<ListAlbumAdapter.ViewHolder>() {
+    private  var listItem : List<ListAlbumModel> = arrayListOf()
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.imageViewItem)
         val txtNameAlbum: TextView = view.findViewById(R.id.txtNameImage)
@@ -25,7 +26,7 @@ class ListAlbumAdapter(private var items: List<ListAlbumModel>, private val onCl
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
+        val item = listItem[position]
         Glide.with(holder.imageView.context)
             .load(item.imagePath)
             .into(holder.imageView)
@@ -37,11 +38,12 @@ class ListAlbumAdapter(private var items: List<ListAlbumModel>, private val onCl
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return listItem.size
     }
 
-    fun updateData(newData: List<ListAlbumModel>) {
-        items = newData
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(newData: List<ListAlbumModel>) {
+        listItem = newData
         notifyDataSetChanged()
     }
 

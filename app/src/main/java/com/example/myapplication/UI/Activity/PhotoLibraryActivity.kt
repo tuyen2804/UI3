@@ -31,6 +31,12 @@ class PhotoLibraryActivity : BaseActivity<ActivityPhotoLibraryBinding>() {
         setupRecyclerView()
         // Load the initial fragment into FragmentContainerView
         openFragment(LibraryFragment::class.java, R.id.fragment_container_viewMain, null, false)
+
+        // Set up click listener for return button
+        binding.returnFragment.setOnClickListener {
+            Log.d(TAG, "setUpView: quaylai")
+            returnToPreviousFragment()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -45,7 +51,7 @@ class PhotoLibraryActivity : BaseActivity<ActivityPhotoLibraryBinding>() {
         listLibraryAdapter.notifyDataSetChanged()
     }
 
-    public fun addFragmentToList(fragmentName: String) {
+    fun addFragmentToList(fragmentName: String) {
         fragmentList.add(ListLibrary(fragmentName))
         listLibraryAdapter.notifyDataSetChanged()
     }
@@ -53,27 +59,26 @@ class PhotoLibraryActivity : BaseActivity<ActivityPhotoLibraryBinding>() {
     override fun openFragment(
         fragmentClazz: Class<*>, containerViewId: Int, args: Bundle?, addBackStack: Boolean
     ) {
-        super.openFragment(fragmentClazz, containerViewId, args, addBackStack)
-        val fragmentInstance = supportFragmentManager.findFragmentByTag(fragmentClazz.simpleName)
-        fragmentInstance?.let {
-            addFragmentToList(getFragmentName(it))
-        }
+        val fragment = fragmentClazz.newInstance() as Fragment
+        supportFragmentManager.beginTransaction()
+            .replace(containerViewId, fragment, fragmentClazz.simpleName)
+            .apply { if (addBackStack) addToBackStack(fragmentClazz.simpleName) }
+            .commit()
+        addFragmentToList(getFragmentName(fragment))
     }
-    public fun replaceFragment(fragment: Fragment) {
-        val fragmentInstance = supportFragmentManager
 
-        fragmentInstance.beginTransaction()
-            .replace(R.id.fragment_container_viewMain, fragment)
-            .addToBackStack(fragment::class.java.name)
+    fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_viewMain, fragment, fragment::class.java.simpleName)
+            .addToBackStack(fragment::class.java.simpleName)
             .commit()
 
-        // Cập nhật danh sách fragment
+        // Update fragment list
         addFragmentToList(getFragmentName(fragment))
-        Log.d(TAG, "replaceFragment: "+fragmentList)
+        Log.d(TAG, "replaceFragment: $fragmentList")
     }
 
-
-    public fun getFragmentName(fragment: Fragment): String {
+    fun getFragmentName(fragment: Fragment): String {
         return when (fragment) {
             is LibraryFragment -> "Library"
             is ImageFragment -> "Image"
@@ -81,12 +86,27 @@ class PhotoLibraryActivity : BaseActivity<ActivityPhotoLibraryBinding>() {
         }
     }
 
-
     override fun onBackPressed() {
-        super.onBackPressed()
+        val backStackCount = supportFragmentManager.backStackEntryCount
+        if (backStackCount > 0) {
+            supportFragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
         val currentFragment = supportFragmentManager.fragments.lastOrNull()
         currentFragment?.let {
             updateFragmentList(getFragmentName(it))
         }
-  }
+    }
+
+    private fun returnToPreviousFragment() {
+        val backStackCount = supportFragmentManager.backStackEntryCount
+        if (backStackCount > 0) {
+            supportFragmentManager.popBackStack()
+            val currentFragment = supportFragmentManager.fragments.lastOrNull()
+            currentFragment?.let {
+                updateFragmentList(getFragmentName(it))
+            }
+        }
+    }
 }

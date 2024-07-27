@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A1C26"
-    android:padding="@dimen/_12dp"
     tools:context=".UI.Fragment.ByPixelFragment">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_8dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -157,7 +157,17 @@
                         android:track="@drawable/track" />
                 </LinearLayout>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/recyclerView"
+                    android:padding="@dimen/_4dp"
+                    android:orientation="vertical"
 
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="-214dp"
+                    tools:listitem="@layout/layout_list_bypixel"
+                    android:layout_height="wrap_content" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -180,12 +190,14 @@
                         android:textColor="@color/white"
                         android:textSize="13dp" />
                 </LinearLayout>
-            </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/selected_background"
-            android:text="Compression"
-            android:textColor="@color/white" />
-</FrameLayout>
+            </LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/selected_background"
+        android:text="Compression"
+        android:textColor="@color/white" />
+
+</RelativeLayout>
