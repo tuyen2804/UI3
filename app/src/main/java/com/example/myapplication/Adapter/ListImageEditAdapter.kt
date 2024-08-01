@@ -1,3 +1,4 @@
+
 package com.example.myapplication.Adapter
 
 import android.view.LayoutInflater
@@ -10,12 +11,16 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.Model.ListImageEditModel
 import com.example.myapplication.R
 
-class ListImageEditAdapter(private var items: List<ListImageEditModel>) : RecyclerView.Adapter<ListImageEditAdapter.ViewHolder>() {
+class ListImageEditAdapter(
+    private var items: List<ListImageEditModel>,
+    private val onRemoveImage: (ListImageEditModel) -> Unit
+) : RecyclerView.Adapter<ListImageEditAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.imageView)
         val sizeImage: TextView = view.findViewById(R.id.sizeImage)
         val widthHeight: TextView = view.findViewById(R.id.width_height)
+        val removeImage: ImageView = view.findViewById(R.id.removeImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,11 +36,12 @@ class ListImageEditAdapter(private var items: List<ListImageEditModel>) : Recycl
             .into(holder.imageView)
         holder.sizeImage.text = item.sizeImage.toString()
         holder.widthHeight.text = "${item.width} x ${item.height}"
+        holder.removeImage.setOnClickListener {
+            onRemoveImage(item)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
     fun updateItems(newItems: List<ListImageEditModel>) {
         items = newItems

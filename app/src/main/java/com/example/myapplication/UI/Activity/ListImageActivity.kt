@@ -1,3 +1,4 @@
+
 package com.example.myapplication.UI.Activity
 
 import android.content.Intent
@@ -24,7 +25,9 @@ class ListImageActivity : AppCompatActivity() {
 
         val selectedImagePaths = intent.getStringArrayListExtra("selectedImagePaths")
 
-        adapter = ListImageEditAdapter(emptyList())
+        adapter = ListImageEditAdapter(emptyList()) { image ->
+            viewModel.removeImage(image)
+        }
         binding.recyclerView.layoutManager = GridLayoutManager(this, 3)
         binding.recyclerView.adapter = adapter
 
@@ -44,9 +47,12 @@ class ListImageActivity : AppCompatActivity() {
 
         binding.btnNext.setOnClickListener {
             val intent = Intent(this, PreCompressionActivity::class.java).apply {
-                putStringArrayListExtra("selectedImagePaths", ArrayList(selectedImagePaths))
+                putStringArrayListExtra("selectedImagePaths", ArrayList(viewModel.images.value?.map { it.imagePath }))
             }
             startActivity(intent)
+        }
+        binding.returnActivity.setOnClickListener(){
+            finish()
         }
     }
 }

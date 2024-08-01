@@ -48,8 +48,9 @@
             android:textColor="@color/white"/>
         <ImageView
             android:layout_margin="@dimen/_8dp"
-            android:layout_width="@dimen/_24dp"
-            android:layout_height="@dimen/_24dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:id="@+id/returnActivity"
             android:background="@drawable/add"/>
 
     </LinearLayout>
@@ -61,7 +62,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_margin="@dimen/_16dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="-214dp"
+            tools:listitem="@layout/layout_list_image_edit"
             android:layout_height="match_parent"
             android:id="@+id/recyclerView"/>
         <androidx.appcompat.widget.AppCompatButton

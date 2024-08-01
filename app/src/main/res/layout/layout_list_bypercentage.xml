@@ -27,17 +27,17 @@
                     android:background="@drawable/image_border"
                     android:scaleType="centerCrop" />
 
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                app:round="8dp"
-                android:id="@+id/imgEdit"
-                android:layout_width="116dp"
-                android:layout_height="116dp"
-                android:layout_margin="2dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_launcher_foreground"
-                android:layout_gravity="center" />
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    app:round="8dp"
+                    android:id="@+id/imgEdit"
+                    android:layout_width="116dp"
+                    android:layout_height="116dp"
+                    android:layout_margin="2dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_launcher_foreground"
+                    android:layout_gravity="center" />
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,8 +78,8 @@
         <LinearLayout
 
             android:layout_width="match_parent"
-            android:layout_marginStart="12dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -146,33 +146,66 @@
                 </LinearLayout>
 
             </LinearLayout>
-
             <LinearLayout
-                android:layout_width="100dp"
-                android:id="@+id/popupMenu"
-                android:layout_marginTop="@dimen/_8dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ori_bg"
-                android:gravity="center_vertical"
                 android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:id="@+id/popupMenu"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginEnd="@dimen/_40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ori_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="jpg"
+                        android:textSize="16dp"
+                        android:id="@+id/typeImage"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginBottom="@dimen/_8dp"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/chevron_right" />
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="jpg"
-                    android:textSize="16dp"
-                    android:id="@+id/typeImage"
                     android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginStart="@dimen/_40dp"
                     android:layout_marginBottom="@dimen/_8dp"
-                    android:textColor="@color/white" />
+                    android:background="@drawable/size_bg"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@drawable/chevron_right" />
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:layout_marginEnd="@dimen/_12dp"
+                        android:layout_marginBottom="@dimen/_8dp"
+                        android:background="@drawable/icon2" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:layout_marginEnd="@dimen/_8dp"
+                        android:background="@drawable/icon_seek" />
+                </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

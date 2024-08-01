@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="100dp"
-    android:layout_height="140dp"
+    android:layout_height="135dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/grey_custom"
     android:layout_margin="@dimen/_8dp"
     android:gravity="center">
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        app:round="8dp"
+        android:id="@+id/imageBorder"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:background="@drawable/image_border"
+        android:scaleType="centerCrop" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,13 +22,15 @@
 
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
-        app:round="12dp"
+        app:round="8dp"
         android:id="@+id/imageViewItem"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_margin="2dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/image_state"
         android:layout_gravity="center"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

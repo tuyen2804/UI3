@@ -1,60 +1,116 @@
 package com.example.myapplication.UI.Fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupWindow
+import android.widget.SeekBar
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.Adapter.ListPreAdapter
+import com.example.myapplication.Adapter.PopupAdapter
+import com.example.myapplication.Model.ListPopupModel
 import com.example.myapplication.R
+import com.example.myapplication.ViewModel.ListEditViewModel
+import com.example.myapplication.databinding.FragmentByPixelBinding
+import com.example.myapplication.databinding.FragmentBypercentageBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [BypercentageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BypercentageFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentBypercentageBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: ListEditViewModel by activityViewModels()
+    private lateinit var adapter: ListPreAdapter
+    private lateinit var popupWindow: PopupWindow
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bypercentage, container, false)
+        _binding = FragmentBypercentageBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BypercentageFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BypercentageFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        adapter = ListPreAdapter(emptyList(), R.layout.layout_list_bypixel) { anchor, position ->
+            val currentTypeImage = adapter.itemEdits[position].typeImage
+            showPopupMenu(anchor, currentTypeImage) { selectedItem ->
+                adapter.itemEdits[position].typeImage = selectedItem
+                adapter.notifyItemChanged(position)
             }
+        }
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 1)
+        binding.recyclerView.adapter = adapter
+        viewModel.imageData.observe(viewLifecycleOwner) { images ->
+            adapter.updateItems(images)
+        }
+
+        binding.btnOriginal.setOnClickListener {
+            showPopupMenu(it, null) { selectedItem ->
+            }
+        }
+
+        binding.seekbarEdit.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.txtSeekbar.text = "$progress%"
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
+        binding.seekbarEdit1.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.txtSeekbar1.text = "$progress%"
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
     }
+
+    @SuppressLint("MissingInflatedId")
+    private fun showPopupMenu(anchor: View, currentTypeImage: String?, onItemClick: (String) -> Unit) {
+        val popupItems = listOf(
+            ListPopupModel("png"),
+            ListPopupModel("jpg"),
+            ListPopupModel("heic"),
+            ListPopupModel("webp"),
+            ListPopupModel("jpec")
+        ).filter { it.typeImage != currentTypeImage }
+
+        val inflater = LayoutInflater.from(requireContext())
+        val view = inflater.inflate(R.layout.popup_menu, null)
+
+        val recyclerViewPopup = view.findViewById<RecyclerView>(R.id.recyclerViewPopup)
+        val adapter = PopupAdapter(popupItems) { selectedItem ->
+            onItemClick(selectedItem)
+            popupWindow.dismiss()
+        }
+        recyclerViewPopup.layoutManager = LinearLayoutManager(requireContext())
+        recyclerViewPopup.adapter = adapter
+
+        popupWindow = PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
+        popupWindow.showAsDropDown(anchor)
+    }
+    fun updateData(){
+        adapter.notifyDataSetChanged()
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

@@ -6,7 +6,7 @@
                 <shape android:shape="oval">
                     <solid android:color="@color/white" />
                     <stroke android:width="10dp" android:color="@color/white" />
-                    <size android:width="@dimen/_18dp" android:height="@dimen/_18dp" />
+                    <size android:width="16dp" android:height="@dimen/_16dp" />
                 </shape>
             </item>
         </layer-list>
@@ -16,7 +16,7 @@
             <item android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp">
                 <shape android:shape="oval">
                     <solid android:color="@color/white" />
-                    <size android:width="@dimen/_18dp" android:height="@dimen/_18dp" />
+                    <size android:width="@dimen/_16dp" android:height="@dimen/_16dp" />
                 </shape>
             </item>
         </layer-list>

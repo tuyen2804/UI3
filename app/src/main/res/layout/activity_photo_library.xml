@@ -10,22 +10,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <ImageView
                     android:layout_width="@dimen/_24dp"
                     android:layout_height="@dimen/_24dp"
+                    android:layout_margin="@dimen/_12dp"
                     android:id="@+id/returnFragment"
                         android:background="@drawable/lb_bt1"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8dp"
+                    android:layout_marginBottom="2dp"
+                    android:textSize="@dimen/_16dp"
+
                         android:text="Library"
                         android:textColor="@color/white"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8dp"
+                    android:layout_marginStart="4dp"
                     android:id="@+id/recyclerView"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

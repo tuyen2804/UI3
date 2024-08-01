@@ -12,9 +12,11 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.Model.ListEditModel
 import com.example.myapplication.R
 
-class ListEditAdapter (var itemEdits: List<ListEditModel>,
-private val layoutId: Int
-) : RecyclerView.Adapter<ListEditAdapter.ViewHolder>() {
+class ListPreAdapter(
+    var itemEdits: List<ListEditModel>,
+    private val layoutId: Int,
+    private var clickPopupMenu: (View, Int) -> Unit
+) : RecyclerView.Adapter<ListPreAdapter.ViewHolder>() {
 
     private var selectedPosition: Int = RecyclerView.NO_POSITION
 
@@ -22,7 +24,11 @@ private val layoutId: Int
         var imageView: ImageView = view.findViewById(R.id.imgEdit)
         var sizeImageView: TextView = view.findViewById(R.id.sizeImage)
         var widthHeight: TextView = view.findViewById(R.id.width_height)
+        var typeImage: TextView = view.findViewById(R.id.typeImage)
+        var popupMenu: LinearLayout = view.findViewById(R.id.popupMenu)
         val imgBorder: ImageView = view.findViewById(R.id.imageBorder)
+        var txtProgress: TextView= view.findViewById(R.id.txtProgress)
+        val seekBar: SeekBar=view.findViewById(R.id.seekbarEdit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,10 +44,18 @@ private val layoutId: Int
             .into(holder.imageView)
         holder.sizeImageView.text = item.sizeImage
         holder.widthHeight.text = "${item.width} x ${item.height}"
+        holder.typeImage.text = item.typeImage
+
         val isSelected = holder.adapterPosition == selectedPosition
         holder.imgBorder.visibility = if (isSelected) View.VISIBLE else View.GONE
 
-
+        holder.popupMenu.setOnClickListener {
+            clickPopupMenu(it, holder.adapterPosition)
+            val previousPosition = selectedPosition
+            selectedPosition = holder.adapterPosition
+            notifyItemChanged(previousPosition)
+            notifyItemChanged(selectedPosition)
+        }
 
         holder.itemView.setOnClickListener {
             val previousPosition = selectedPosition
@@ -49,7 +63,19 @@ private val layoutId: Int
             notifyItemChanged(previousPosition)
             notifyItemChanged(selectedPosition)
         }
+        holder.seekBar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                holder.txtProgress.text="$p1%"
+            }
 
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+
+
+        })
     }
 
     override fun getItemCount(): Int = itemEdits.size

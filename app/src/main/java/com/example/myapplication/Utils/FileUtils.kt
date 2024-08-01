@@ -52,6 +52,10 @@ object FileUtils {
             inJustDecodeBounds = true
         }
         BitmapFactory.decodeFile(path, options)
-        return options.outMimeType ?: "UNKNOWN"
+
+        // Extracting the file extension from the MIME type
+        val mimeType = options.outMimeType ?: return "UNKNOWN"
+        val parts = mimeType.split("/")
+        return if (parts.size == 2) parts[1] else "UNKNOWN"
     }
 }

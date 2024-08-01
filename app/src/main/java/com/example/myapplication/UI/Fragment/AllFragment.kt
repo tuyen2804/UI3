@@ -22,6 +22,7 @@ class AllFragment : Fragment(), LibraryInterface {
     private val viewModel: AlbumViewModel by viewModels()
     private lateinit var adapter: ListAlbumAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

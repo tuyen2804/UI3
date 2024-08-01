@@ -1,3 +1,4 @@
+// ViewModel
 package com.example.myapplication.ViewModel
 
 import androidx.lifecycle.LiveData
@@ -23,5 +24,9 @@ class ListImageEditViewModel : ViewModel() {
             )
         }
         _images.value = models
+    }
+
+    fun removeImage(image: ListImageEditModel) {
+        _images.value = _images.value?.filter { it != image }
     }
 }

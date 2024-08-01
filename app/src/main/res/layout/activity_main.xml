@@ -83,7 +83,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/button2_container"
+                android:id="@+id/btnFastCompression"
                 android:layout_width="0dp"
                 android:layout_height="80dp"
                 android:layout_marginEnd="@dimen/_12dp"
@@ -116,7 +116,7 @@
 
 
             <LinearLayout
-                android:id="@+id/button3_container"
+                android:id="@+id/btnPreCompression"
                 android:layout_width="0dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
@@ -154,7 +154,7 @@
 
 
             <LinearLayout
-                android:id="@+id/button4_container"
+                android:id="@+id/btnEdit"
                 android:layout_width="0dp"
                 android:layout_height="80dp"
                 android:layout_marginEnd="@dimen/_12dp"

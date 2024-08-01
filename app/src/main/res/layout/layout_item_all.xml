@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/layout_item_all"
     android:gravity="center">
 
-    <ImageView
+    <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/imageViewItem"
+        app:round="@dimen/_8dp"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"

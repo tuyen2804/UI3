@@ -15,11 +15,12 @@ class ListEditViewModel : ViewModel() {
             val size = FileUtils.getSizeFile(path)
             val width = FileUtils.getImageWidth(path)
             val height = FileUtils.getImageHeight(path)
+            var typeImage = FileUtils.getImageType(path)
             ListEditModel(
                 imagePath = path,
                 seekbar = 0.0f,
                 sizeImage = size,
-                typeImage = "",
+                typeImage = typeImage,
                 width = width,
                 height = height
             )

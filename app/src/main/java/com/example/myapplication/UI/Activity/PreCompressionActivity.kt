@@ -10,20 +10,26 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.myapplication.Adapter.PreAdapter
 import com.example.myapplication.R
 import com.example.myapplication.UI.Fragment.ByPixelFragment
+import com.example.myapplication.UI.Fragment.BypercentageFragment
 import com.example.myapplication.ViewModel.ListEditViewModel
+import com.example.myapplication.databinding.ActivityPreCompressionBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class PreCompressionActivity : AppCompatActivity() {
     private val viewModel: ListEditViewModel by viewModels()
+    private lateinit var binding: ActivityPreCompressionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pre_compression)
+        binding = ActivityPreCompressionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         setupViewPager()
 
         // Extract data from intent and set to ViewModel
@@ -31,6 +37,10 @@ class PreCompressionActivity : AppCompatActivity() {
         selectedImagePaths?.let {
             Log.d("PreCompressionActivity", "Received image paths: $it")
             viewModel.setImageData(it)
+        }
+
+        binding.returnActivity.setOnClickListener {
+            finish() // Finish the current activity and return to the previous one
         }
     }
 
@@ -53,6 +63,9 @@ class PreCompressionActivity : AppCompatActivity() {
                 // Notify the fragment to update its data
                 val fragment = supportFragmentManager.findFragmentByTag("f$position")
                 if (fragment is ByPixelFragment) {
+                    fragment.updateData()
+                }
+                if (fragment is BypercentageFragment) {
                     fragment.updateData()
                 }
             }

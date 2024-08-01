@@ -1,12 +1,11 @@
 package com.example.myapplication.UI.Activity
 
-import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.databinding.ActivityMainBinding
 import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.Adapter.RvAdapter
 import com.example.myapplication.R
+import com.example.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,24 +17,28 @@ class MainActivity : AppCompatActivity() {
         RvAdapter.Item(R.drawable.ic_launcher_foreground, "Item 3"),
         RvAdapter.Item(R.drawable.ic_launcher_foreground, "Item 4")
     )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.button3Container.setOnClickListener {
 
-            val intent = Intent(this, PhotoLibraryActivity::class.java)
+        binding.btnPreCompression.setOnClickListener {
+            val intent = Intent(this, PhotoLibraryActivity::class.java).apply {
+                putExtra("button_name", "PreCompression")
+            }
             startActivity(intent)
         }
-        binding.button2Container.setOnClickListener {
-            Toast.makeText(this,"hiện",Toast.LENGTH_LONG).show()
+
+        binding.btnEdit.setOnClickListener {
+            val intent = Intent(this, PhotoLibraryActivity::class.java).apply {
+                putExtra("button_name", "EditImage")
+            }
+            startActivity(intent)
         }
 
         adapter = RvAdapter(items)
         binding.recyclerView.adapter = adapter
-
     }
-
 }
-

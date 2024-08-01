@@ -1,5 +1,7 @@
 package com.example.myapplication.Adapter
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,7 @@ class ImageAdapter(private var items: List<ListImageModel>) : RecyclerView.Adapt
         val imageView: ImageView = view.findViewById(R.id.imageViewItem)
         val checkBox: CheckBox = view.findViewById(R.id.cbImage)
         val sizeTextView: TextView = view.findViewById(R.id.sizeImage)
+        val imageBorder: ImageView = view.findViewById(R.id.imageBorder)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,9 +35,13 @@ class ImageAdapter(private var items: List<ListImageModel>) : RecyclerView.Adapt
             .into(holder.imageView)
         holder.checkBox.isChecked = item.isChecked
         holder.sizeTextView.text = item.size
+        holder.imageBorder.visibility = if (item.isChecked) View.VISIBLE else View.GONE
+
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             item.isChecked = isChecked
+            holder.imageBorder.visibility = if (isChecked) View.VISIBLE else View.GONE
         }
+
     }
 
     override fun getItemCount(): Int {
