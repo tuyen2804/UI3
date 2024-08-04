@@ -7,17 +7,17 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.Base.BaseActivity
-import com.example.myapplication.Model.ListLibrary
+import com.example.myapplication.Model.LibraryModel
 import com.example.myapplication.UI.Fragment.LibraryFragment
 import com.example.myapplication.databinding.ActivityPhotoLibraryBinding
-import com.example.myapplication.Adapter.ListLibraryAdapter
+import com.example.myapplication.Adapter.LibraryAdapter
 import com.example.myapplication.R
 import com.example.myapplication.UI.Fragment.ImageFragment
 
 class PhotoLibraryActivity : BaseActivity<ActivityPhotoLibraryBinding>() {
 
-    private lateinit var listLibraryAdapter: ListLibraryAdapter
-    private var fragmentList = mutableListOf<ListLibrary>()
+    private lateinit var listLibraryAdapter: LibraryAdapter
+    private var fragmentList = mutableListOf<LibraryModel>()
 
     override fun getViewBinding(inflater: LayoutInflater): ActivityPhotoLibraryBinding {
         return ActivityPhotoLibraryBinding.inflate(inflater)
@@ -40,19 +40,19 @@ class PhotoLibraryActivity : BaseActivity<ActivityPhotoLibraryBinding>() {
     }
 
     private fun setupRecyclerView() {
-        listLibraryAdapter = ListLibraryAdapter(fragmentList)
+        listLibraryAdapter = LibraryAdapter(fragmentList)
         binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerView.adapter = listLibraryAdapter
     }
 
     fun updateFragmentList(fragmentName: String) {
         fragmentList.clear()
-        fragmentList.add(ListLibrary(fragmentName))
+        fragmentList.add(LibraryModel(fragmentName))
         listLibraryAdapter.notifyDataSetChanged()
     }
 
     fun addFragmentToList(fragmentName: String) {
-        fragmentList.add(ListLibrary(fragmentName))
+        fragmentList.add(LibraryModel(fragmentName))
         listLibraryAdapter.notifyDataSetChanged()
     }
 

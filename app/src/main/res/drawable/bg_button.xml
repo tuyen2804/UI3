@@ -6,7 +6,7 @@
     <corners android:radius="16dp" />
 
     <!-- Màu nền -->
-    <solid android:color="#5D7F91" />
+    <solid android:color="@color/grey_2" />
 
     <!-- Đường viền -->
     <stroke

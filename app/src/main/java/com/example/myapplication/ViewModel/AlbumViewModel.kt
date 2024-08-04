@@ -8,12 +8,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.Model.ListAlbumModel
+import com.example.myapplication.Model.AlbumModel
 
 class AlbumViewModel : ViewModel() {
 
-    private val _albumList = MutableLiveData<List<ListAlbumModel>>()
-    val albumList: LiveData<List<ListAlbumModel>> get() = _albumList
+    private val _albumList = MutableLiveData<List<AlbumModel>>()
+    val albumList: LiveData<List<AlbumModel>> get() = _albumList
 
     fun checkPermissions(context: Context, requestPermissions: () -> Unit) {
         if (ContextCompat.checkSelfPermission(
@@ -33,8 +33,8 @@ class AlbumViewModel : ViewModel() {
     }
 
 
-    private fun getAllShownImagesPath(context: Context): List<ListAlbumModel> {
-        val listOfAllImages = mutableListOf<ListAlbumModel>()
+    private fun getAllShownImagesPath(context: Context): List<AlbumModel> {
+        val listOfAllImages = mutableListOf<AlbumModel>()
         val uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 
         val projection = arrayOf(
@@ -56,7 +56,7 @@ class AlbumViewModel : ViewModel() {
             }
 
             for ((albumName, imagePaths) in albumMap) {
-                listOfAllImages.add(ListAlbumModel(imagePaths[0], albumName, imagePaths.size))
+                listOfAllImages.add(AlbumModel(imagePaths[0], albumName, imagePaths.size))
             }
         }
 

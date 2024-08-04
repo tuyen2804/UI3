@@ -11,4 +11,6 @@
     <color name="uncheck_thumb">#8c8c8c8c</color>
     <color name="unchecked_track">#0A1C26</color>
     <color name="grey_custom">#0A1C26</color>
+    <color name="grey_2">#142A37</color>
+    <color name="orange">#FBDBB4</color>
 </resources>

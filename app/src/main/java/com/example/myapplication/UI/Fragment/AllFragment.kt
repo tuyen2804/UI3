@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.myapplication.LibraryInterface
-import com.example.myapplication.Adapter.ListAlbumAdapter
+import com.example.myapplication.Adapter.AlbumAdapter
 import com.example.myapplication.UI.Activity.PhotoLibraryActivity
 import com.example.myapplication.ViewModel.AlbumViewModel
 import com.example.myapplication.databinding.FragmentAllBinding
@@ -20,7 +20,7 @@ class AllFragment : Fragment(), LibraryInterface {
     private var _binding: FragmentAllBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AlbumViewModel by viewModels()
-    private lateinit var adapter: ListAlbumAdapter
+    private lateinit var adapter: AlbumAdapter
 
 
     override fun onCreateView(
@@ -38,7 +38,7 @@ class AllFragment : Fragment(), LibraryInterface {
     }
 
     private fun setUpView() {
-        adapter = ListAlbumAdapter(this)
+        adapter = AlbumAdapter(this)
         binding.recyclerView.adapter = adapter
         viewModel.checkPermissions(requireContext()) {
             requestPermissions(arrayOf(Manifest.permission.READ_MEDIA_IMAGES), 100)

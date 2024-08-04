@@ -7,16 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
-import com.example.myapplication.Adapter.PreAdapter
+import com.example.myapplication.Adapter.TabPreAdapter
 import com.example.myapplication.R
-import com.example.myapplication.UI.Fragment.ByPixelFragment
-import com.example.myapplication.UI.Fragment.BypercentageFragment
-import com.example.myapplication.ViewModel.ListEditViewModel
+import com.example.myapplication.UI.Fragment.PreByPixelFragment
+import com.example.myapplication.UI.Fragment.PreBypercentageFragment
+import com.example.myapplication.ViewModel.EditViewModel
 import com.example.myapplication.databinding.ActivityPreCompressionBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class PreCompressionActivity : AppCompatActivity() {
-    private val viewModel: ListEditViewModel by viewModels()
+    private val viewModel: EditViewModel by viewModels()
     private lateinit var binding: ActivityPreCompressionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,14 +40,14 @@ class PreCompressionActivity : AppCompatActivity() {
         }
 
         binding.returnActivity.setOnClickListener {
-            finish() // Finish the current activity and return to the previous one
+            finish()
         }
     }
 
     private fun setupViewPager() {
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
         val tabLayout = findViewById<com.google.android.material.tabs.TabLayout>(R.id.tabLayout)
-        val adapter = PreAdapter(supportFragmentManager, lifecycle)
+        val adapter = TabPreAdapter(supportFragmentManager, lifecycle)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -62,10 +62,10 @@ class PreCompressionActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 // Notify the fragment to update its data
                 val fragment = supportFragmentManager.findFragmentByTag("f$position")
-                if (fragment is ByPixelFragment) {
+                if (fragment is PreByPixelFragment) {
                     fragment.updateData()
                 }
-                if (fragment is BypercentageFragment) {
+                if (fragment is PreBypercentageFragment) {
                     fragment.updateData()
                 }
             }

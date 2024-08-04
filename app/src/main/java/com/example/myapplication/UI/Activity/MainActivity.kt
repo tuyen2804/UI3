@@ -2,6 +2,7 @@ package com.example.myapplication.UI.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.Adapter.RvAdapter
 import com.example.myapplication.R
@@ -25,20 +26,43 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnPreCompression.setOnClickListener {
-            val intent = Intent(this, PhotoLibraryActivity::class.java).apply {
-                putExtra("button_name", "PreCompression")
-            }
+            saveNameAction("PreCompression")
+            val intent = Intent(this, PhotoLibraryActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnEdit.setOnClickListener {
-            val intent = Intent(this, PhotoLibraryActivity::class.java).apply {
-                putExtra("button_name", "EditImage")
-            }
+            saveNameAction("EditImage")
+            val intent = Intent(this, PhotoLibraryActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnFitstruetosize.setOnClickListener(){
+            saveNameAction("Fitstruetosize")
+            val intent = Intent(this, PhotoLibraryActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnFastCompression.setOnClickListener(){
+            saveNameAction("FastCompressor")
+            val intent = Intent(this, PhotoLibraryActivity::class.java)
+            startActivity(intent)
+        }
+        binding.jpg.setOnClickListener(){
+            saveNameAction("Image convert to PDF")
+            val intent = Intent(this, PhotoLibraryActivity::class.java)
             startActivity(intent)
         }
 
+
+
         adapter = RvAdapter(items)
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun saveNameAction(nameAction: String) {
+        val sharedPref = getSharedPreferences("app_prefs", MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("nameAction", nameAction)
+            apply()
+        }
     }
 }

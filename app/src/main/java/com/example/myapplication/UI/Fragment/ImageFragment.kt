@@ -1,7 +1,6 @@
 package com.example.myapplication.UI.Fragment
 
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,14 +15,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Adapter.ImageAdapter
 import com.example.myapplication.R
 import com.example.myapplication.UI.Activity.ListImageActivity
-import com.example.myapplication.ViewModel.ListImageViewModel
+import com.example.myapplication.ViewModel.ImageViewModel
 
 class ImageFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var btnCompression: Button
     private lateinit var adapter: ImageAdapter
-    private val viewModel: ListImageViewModel by viewModels()
+    private val viewModel: ImageViewModel by viewModels()
     private lateinit var albumName: String
 
     override fun onCreateView(

@@ -1,7 +1,5 @@
 package com.example.myapplication.Adapter
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.myapplication.Model.ListImageModel
+import com.example.myapplication.Model.ImageModel
 import com.example.myapplication.R
 
-class ImageAdapter(private var items: List<ListImageModel>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class ImageAdapter(private var items: List<ImageModel>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.imageViewItem)
@@ -48,7 +46,7 @@ class ImageAdapter(private var items: List<ListImageModel>) : RecyclerView.Adapt
         return items.size
     }
 
-    fun updateItems(newItems: List<ListImageModel>) {
+    fun updateItems(newItems: List<ImageModel>) {
         items = newItems
         notifyDataSetChanged()
     }

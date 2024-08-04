@@ -30,6 +30,21 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".UI.Activity.ListImageConvertActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Activity.ZoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Activity.SaveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Activity.LoadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Activity.FitsImageActivity"
+            android:exported="false" />
+        <activity
             android:name=".UI.Activity.EditActivity"
             android:exported="false" />
         <activity

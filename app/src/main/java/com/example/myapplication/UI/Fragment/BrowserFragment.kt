@@ -13,9 +13,7 @@ class BrowserFragment : Fragment() {
 
     private var _binding: FragmentBrowserBinding? = null
     private val binding get() = _binding!!
-    companion object{
-        val IMAGE_REQUEST_CODE = 101
-    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,19 +27,7 @@ class BrowserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnAddBrowser.setOnClickListener {
-            pickImageGallery()
-        }
-    }
-    private fun pickImageGallery(){
-        val intent =Intent(Intent.ACTION_PICK)
-        intent.type="image/*"
-        startActivityForResult(intent, IMAGE_REQUEST_CODE)
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode== IMAGE_REQUEST_CODE && resultCode== RESULT_OK){
-        binding.imgView.setImageURI(data?.data)
         }
     }
     override fun onDestroyView() {

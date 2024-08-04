@@ -10,34 +10,30 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="86dp"
         android:layout_margin="20dp"
         android:background="@drawable/file"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="File Browser"
+        android:text="File browser"
         android:textColor="@color/white"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Let"
+        android:text="Let's find some images in the file browser"
         android:layout_marginTop="@dimen/_8dp"
         android:textColor="@color/white"
         android:textSize="@dimen/_10sp"/>
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnAddBrowser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/selected_background"
-        android:text="Browser"
+        android:background="@drawable/bg3"
+        android:paddingStart="@dimen/_8dp"
+        android:paddingEnd="@dimen/_8dp"
+        android:text="Browse images"
         android:layout_marginTop="@dimen/_16dp"/>
-    <ImageView
-        android:id="@+id/imgView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="20dp"
-        />
 
 
 </LinearLayout>

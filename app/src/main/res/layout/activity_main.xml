@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#142A37"
+        android:background="@color/grey_custom"
         android:orientation="vertical"
         tools:context=".UI.Activity.MainActivity">
 
@@ -21,15 +21,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:layout_margin="@dimen/_12dp">
+            android:layout_marginBottom="@dimen/_4dp"
+            android:layout_marginStart="@dimen/_12dp">
 
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/h1_1"
-                android:src="@drawable/ic_launcher_foreground"
                 landroid:layout_constraintBottom_toBottomOf="parent"
                 landroid:layout_constraintStart_toStartOf="parent"
                 landroid:layout_constraintTop_toTopOf="parent" />
@@ -37,11 +38,11 @@
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="160dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/h1_tv1"
-                android:gravity="center_vertical"
-                android:padding="8dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:text="Image compressor and resizer"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16dp"
                 landroid:layout_constraintBottom_toBottomOf="parent"
                 landroid:layout_constraintEnd_toStartOf="@id/guideline"
                 landroid:layout_constraintStart_toEndOf="@id/imageView1"
@@ -71,7 +72,8 @@
             android:id="@+id/textView2"
             android:layout_width="40dp"
             android:layout_height="16dp"
-            android:layout_margin="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="4dp"
             android:background="@drawable/h2_tv1" />
 
 
@@ -79,7 +81,9 @@
             android:id="@+id/bu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_12dp"
+            android:layout_marginStart="@dimen/_12dp"
+            android:layout_marginTop="@dimen/_12dp"
+            android:layout_marginEnd="@dimen/_12dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -216,10 +220,11 @@
 
 
         <LinearLayout
-            android:id="@+id/button6_container"
+            android:id="@+id/btnFitstruetosize"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_margin="@dimen/_12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="@dimen/_12dp"
             android:background="@drawable/bg2"
             android:orientation="vertical"
             android:padding="8dp">
@@ -248,13 +253,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="12dp"
                 android:layout_weight="1"
                 android:textColor="@color/white"
                 android:text="My collection" />
@@ -271,7 +277,9 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="@dimen/_12dp"
+            android:layout_marginTop="@dimen/_4dp"
             android:orientation="horizontal"
             landroid:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_recycler_view" />
@@ -289,28 +297,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_margin="@dimen/_12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="@dimen/_12dp"
+            android:layout_marginEnd="12dp"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:id="@+id/jpg"
                 android:layout_height="80dp"
                 android:layout_marginEnd="@dimen/_12dp"
                 android:background="@drawable/bg2"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="@dimen/_40dp"
-                    android:layout_height="@dimen/_40dp"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="@dimen/_16dp"
                     android:layout_marginTop="@dimen/_16dp"
-                    android:background="@drawable/icon_bt1"
+                    android:background="@drawable/bt10"
                     android:layout_gravity="left"/>
                 <TextView
                     android:layout_marginTop="@dimen/_8dp"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_16dp"
-                    android:text="ZCCBV"
+                    android:text="Convert to JPG"
                     android:textColor="@color/white"
                     />
 
@@ -320,20 +331,20 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
 
                 android:background="@drawable/bg2"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="@dimen/_40dp"
-                    android:layout_height="@dimen/_40dp"
-                    android:background="@drawable/icon_bt1"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bt11"
                     android:layout_marginTop="@dimen/_16dp"
                     android:layout_marginStart="@dimen/_16dp"/>
                 <TextView
-                    android:layout_width="@dimen/_40dp"
-                    android:layout_height="@dimen/_40dp"
-                    android:text="ÁDDAFADF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Convert to JPEG"
                     android:textColor="@color/white"
                     android:layout_marginStart="@dimen/_16dp"
                     />
@@ -355,16 +366,16 @@
                 android:layout_marginEnd="@dimen/_12dp"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="@dimen/_40dp"
-                    android:layout_height="@dimen/_40dp"
-                    android:background="@drawable/icon_bt1"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bt12"
                     android:layout_marginStart="@dimen/_16dp"
                     android:layout_marginTop="@dimen/_16dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TLLL"
+                    android:text="Convert to PNG"
                     android:textColor="@color/white"
                     android:layout_marginStart="@dimen/_16dp"/>
 
@@ -377,15 +388,15 @@
                 android:background="@drawable/bg_button"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="@dimen/_40dp"
-                    android:layout_height="@dimen/_40dp"
-                    android:background="@drawable/icon_bt1"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bt13"
                     android:layout_marginStart="@dimen/_16dp"
                     android:layout_marginTop="@dimen/_16dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TTTT"
+                    android:text="Convert to HEIC"
                     android:textColor="@color/white"
                     android:layout_marginStart="@dimen/_12dp"
                     android:textStyle="bold"/>
@@ -399,16 +410,16 @@
             android:orientation="vertical"
             android:layout_margin="@dimen/_12dp">
             <ImageView
-                android:layout_width="@dimen/_40dp"
-                android:layout_height="@dimen/_40dp"
-                android:background="@drawable/icon_bt1"
+                android:layout_width="42dp"
+                android:layout_height="30dp"
+                android:background="@drawable/bt14"
                 android:layout_marginStart="@dimen/_16dp"
                 android:layout_marginTop="@dimen/_16dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textStyle="bold"
-                android:text="tlll"
+                android:text="Convert to WEBP"
                 android:textColor="@color/white"
                 android:layout_marginStart="@dimen/_16dp"/>
         </LinearLayout>
@@ -435,7 +446,7 @@
                     android:layout_height="@dimen/_40dp"
                     android:layout_marginStart="@dimen/_16dp"
                     android:layout_marginTop="@dimen/_16dp"
-                    android:background="@drawable/icon_bt1"/>
+                    android:background="@drawable/bt7"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -444,15 +455,15 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ALLLL"
+                        android:text="Convert PDF to image"
                         android:textSize="@dimen/_16dp"
                         android:textColor="@color/white"
                         android:layout_marginStart="@dimen/_16dp"/>
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="ALLLL"
-                        android:textSize="@dimen/_8dp"
+                        android:layout_height="wrap_content"
+                        android:text="Select PDF files and export images in any format"
+                        android:textSize="12dp"
                         android:textColor="@color/white"
                         android:layout_marginStart="@dimen/_16dp"/>
                 </LinearLayout>
@@ -470,7 +481,7 @@
                     android:layout_height="@dimen/_40dp"
                     android:layout_marginStart="@dimen/_16dp"
                     android:layout_marginTop="@dimen/_16dp"
-                    android:background="@drawable/icon_bt1"/>
+                    android:background="@drawable/bt8"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -478,16 +489,16 @@
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="ALLLL"
+                        android:layout_height="wrap_content"
+                        android:text="Convert image to PDF"
                         android:textSize="@dimen/_16dp"
                         android:textColor="@color/white"
                         android:layout_marginStart="@dimen/_16dp"/>
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="ALLLL"
-                        android:textSize="@dimen/_8dp"
+                        android:layout_height="wrap_content"
+                        android:text="Upload photos and receive as PDF"
+                        android:textSize="12dp"
                         android:textColor="@color/white"
                         android:layout_marginStart="@dimen/_16dp"/>
                 </LinearLayout>
@@ -505,24 +516,24 @@
                     android:layout_height="@dimen/_40dp"
                     android:layout_marginStart="@dimen/_16dp"
                     android:layout_marginTop="@dimen/_16dp"
-                    android:background="@drawable/icon_bt1"/>
+                    android:background="@drawable/bt20"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_16dp"
                     android:orientation="vertical">
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="ALLLL"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Remove background"
                         android:textSize="@dimen/_16dp"
                         android:textColor="@color/white"
                         android:layout_marginStart="@dimen/_16dp"/>
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="ALLLL"
-                        android:textSize="@dimen/_8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Easily remove background from photo"
+                        android:textSize="12dp"
                         android:textColor="@color/white"
                         android:layout_marginStart="@dimen/_16dp"/>
                 </LinearLayout>

@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Model.ListPopupModel
+import com.example.myapplication.Model.PopupModel
 import com.example.myapplication.R
 
-class PopupAdapter(private val items: List<ListPopupModel>, private val onItemClick: (String) -> Unit) : RecyclerView.Adapter<PopupAdapter.ViewHolder>() {
+class PopupAdapter(private val items: List<PopupModel>, private val onItemClick: (String) -> Unit) : RecyclerView.Adapter<PopupAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.txtTypeImage)

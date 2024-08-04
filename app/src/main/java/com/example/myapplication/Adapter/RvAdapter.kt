@@ -18,7 +18,6 @@ class RvAdapter(private val items: List<Item>) : RecyclerView.Adapter<RvAdapter.
         private val textView2: TextView = itemView.findViewById(R.id.textView2)
 
         fun bind(item: Item) {
-            imageView.setImageResource(item.imageResId)
             textView1.text = item.text
             textView2.text = "File ${item.text}" // Thay đổi mô tả tùy theo item nếu cần
         }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="140dp"
+    android:background="#0A1C26"
+    android:layout_marginTop="@dimen/_12dp"
+    android:layout_marginStart="@dimen/_12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        app:round="8dp"
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_launcher_foreground"
+        android:layout_gravity="center"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="120kb"
+        android:textSize="14dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/sizeImage"
+        app:layout_constraintTop_toBottomOf="@id/imageView"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="120x240"
+        android:id="@+id/width_height"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sizeImage"/>
+    <ImageView
+        android:layout_margin="@dimen/_8dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/removeImage"
+        android:background="@drawable/x"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageView
+        android:layout_width="@dimen/_24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/icon_edit"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageView
+        android:layout_width="@dimen/_24dp"
+        android:layout_height="@dimen/_24dp"
+        android:id="@+id/btnZoom"
+        android:background="@drawable/fr3"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@id/imageView"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

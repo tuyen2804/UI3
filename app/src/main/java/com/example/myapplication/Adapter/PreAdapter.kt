@@ -1,22 +1,87 @@
 package com.example.myapplication.Adapter
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.myapplication.UI.Fragment.ByPixelFragment
-import com.example.myapplication.UI.Fragment.BypercentageFragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.SeekBar
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.myapplication.Model.EditModel
+import com.example.myapplication.R
 
-class PreAdapter (fragmentManager: FragmentManager, lifecycle: Lifecycle) :
-FragmentStateAdapter(fragmentManager, lifecycle) {
+class PreAdapter(
+    var itemEdits: List<EditModel>,
+    private val layoutId: Int,
+    private var clickPopupMenu: (View, Int) -> Unit
+) : RecyclerView.Adapter<PreAdapter.ViewHolder>() {
 
-    override fun getItemCount(): Int = 2
+    private var selectedPosition: Int = RecyclerView.NO_POSITION
 
-    override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> ByPixelFragment()
-            1 -> BypercentageFragment()
-            else -> throw IllegalArgumentException("Invalid position")
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var imageView: ImageView = view.findViewById(R.id.imgEdit)
+        var sizeImageView: TextView = view.findViewById(R.id.sizeImage)
+        var widthHeight: TextView = view.findViewById(R.id.width_height)
+        var typeImage: TextView = view.findViewById(R.id.typeImage)
+        var popupMenu: LinearLayout = view.findViewById(R.id.popupMenu)
+        val imgBorder: ImageView = view.findViewById(R.id.imageBorder)
+        var txtProgress: TextView= view.findViewById(R.id.txtProgress)
+        val seekBar: SeekBar=view.findViewById(R.id.seekbarEdit)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = itemEdits[position]
+
+        Glide.with(holder.imageView.context)
+            .load(item.imagePath)
+            .into(holder.imageView)
+        holder.sizeImageView.text = item.sizeImage
+        holder.widthHeight.text = "${item.width} x ${item.height}"
+        holder.typeImage.text = item.typeImage
+
+        val isSelected = holder.adapterPosition == selectedPosition
+        holder.imgBorder.visibility = if (isSelected) View.VISIBLE else View.GONE
+
+        holder.popupMenu.setOnClickListener {
+            clickPopupMenu(it, holder.adapterPosition)
+            val previousPosition = selectedPosition
+            selectedPosition = holder.adapterPosition
+            notifyItemChanged(previousPosition)
+            notifyItemChanged(selectedPosition)
         }
+
+        holder.itemView.setOnClickListener {
+            val previousPosition = selectedPosition
+            selectedPosition = holder.adapterPosition
+            notifyItemChanged(previousPosition)
+            notifyItemChanged(selectedPosition)
+        }
+        holder.seekBar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                holder.txtProgress.text="$p1%"
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+
+
+        })
+    }
+
+    override fun getItemCount(): Int = itemEdits.size
+
+    fun updateItems(newItems: List<EditModel>) {
+        itemEdits = newItems
+        notifyDataSetChanged()
     }
 }
